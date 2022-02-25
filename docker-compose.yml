@@ -1,0 +1,22 @@
+version: "3"
+services:          # each services represent a docker container
+  book-store:      #this is the container name
+    build: .      # path to the dockerfile
+    # build:
+    #   context: .
+    #   dockerfile: dockerfile.dev
+    ports:
+      - "3000:3000"   # port mapping, can be more than one
+    volumes:
+      - ./:/app    # ./src: /app    to sink just the src folder
+      - /app/node_modules
+    # environment:
+    #   - PORT=5000
+    env_file:
+      - ./.env
+
+
+## docker-compose -f book-store-compose.yaml up -d
+## docker-compose up -d
+## docker-compose up -d --build         # to rebuild docker compose
+## docker-compose down
