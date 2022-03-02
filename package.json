@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch",
     "start": "node index.js",
-    "start:dev": "nodemon index.js"
+    "start:dev": "nodemon index.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false"
   },
   "jest": {
     "testEnvironment": "node"
