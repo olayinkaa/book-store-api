@@ -4,11 +4,11 @@ const auth = require('../middlewares/auth.js');
 
 const Router = express.Router();
 
-Router.get('/list',auth,BookGenreController.getBookGenres);
-Router.get('/:genreId',BookGenreController.getGenreById);
 Router.post('/',auth,BookGenreController.addGenre);
-Router.put('/:genreId',BookGenreController.updateGenreById);
-Router.delete('/:genreId',BookGenreController.removeGenreById);
+Router.get('/list',auth,BookGenreController.getBookGenres);
+Router.get('/:genreId',auth,BookGenreController.getGenreById);
+Router.put('/:genreId',auth,BookGenreController.updateGenreById);
+Router.delete('/:genreId',auth,BookGenreController.removeGenreById);
 
 
 module.exports = Router;

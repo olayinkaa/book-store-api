@@ -5,11 +5,11 @@ module.exports = {
         const schema = Joi.object({
             title: Joi.string().required(),
             author: Joi.string().required(),
-            imageUrl: Joi.string().required(),
+            // imageUrl: Joi.string().required(),
             isbnNumber: Joi.string().required(),
             price: Joi.number().required(),
             language: Joi.string().required(),
-            genre: Joi.string().required(),
+            genreId: Joi.string().required(),
             //
         }).options({ abortEarly: false, allowUnknown: true })
 

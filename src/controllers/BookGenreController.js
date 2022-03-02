@@ -5,7 +5,8 @@ const {formatResponseError} = require('../services/HelperService.js');
 const GenreController = {
     getBookGenres: async (req,res) => {
         try {
-            const genres = await Genre.find().select("-__v -user")
+            // const genres = await Genre.find({userId:req.user.id}).select("-__v -user").populate("userId")
+            const genres = await Genre.find({userId:req.user.id}).select("-__v -userId")
             if(!genres) return res.status(404).json({error:"book genres not found"});
             return res.status(200).json({
                 status:200,
@@ -20,7 +21,7 @@ const GenreController = {
     getGenreById: async (req,res)=> {
        try {
         // const genre = await Genre.findById(req.params.genreId).select('-__v -createdAt -updatedAt');
-        const genre = await Genre.findOne({_id:req.params.genreId, user:req.user.id}).select('-__v -createdAt -updatedAt');
+        const genre = await Genre.findOne({_id:req.params.genreId, user:req.user.id}).select('-__v -createdAt -updatedAt')
         if(!genre) return res.status(404).json({error:"genre not found"});
         return res.status(200).json({
             status:200,
@@ -40,7 +41,10 @@ const GenreController = {
             const { value, error } = GenreService.validateRequestBody(req.body);
             if(error) return res.status(400).json(formatResponseError(error))
             let genre = new Genre(value);
-            genre.user =  req.user.id
+            if(!req.user.id){
+                return res.status(400).json({ error: 'Unauthorised' });
+            }
+            genre.userId =  req.user.id
             genre = await genre.save();
             return res.status(200).json({
                 status:200,
@@ -49,7 +53,7 @@ const GenreController = {
             });
         } catch (error) {
             console.log(error)
-            return res.status(500).send(error);
+            return res.status(500).send({error});
         }
     },
     updateGenreById: async (req,res) => {
@@ -57,7 +61,7 @@ const GenreController = {
             const {genreId} = req.params
             const { value, error } = GenreService.validateRequestBody(req.body);
             if(error) return res.status(400).json({error})
-            const genre = await Genre.findOneAndUpdate({ _id: genreId }, value, { new: true, runValidators:true });
+            const genre = await Genre.findOneAndUpdate({ _id: genreId,userId:req.user.id }, value, { new: true, runValidators:true });
             return res.status(200).json({
                 status:200,
                 message:"successfully updated",
@@ -74,7 +78,7 @@ const GenreController = {
     removeGenreById: async (req,res)=> {
         try {
             const { genreId } = req.params;
-            const genre = await Genre.findOneAndRemove({ _id: genreId });
+            const genre = await Genre.findOneAndRemove({ _id: genreId, userId:req.user.id });
             if (!genre) {
               return res.status(404).json({ err: 'could not find genre' });
             }

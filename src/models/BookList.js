@@ -12,8 +12,12 @@ const BookListSchema = new Schema({
     },
     imageUrl:{
         type:String,
-        required:true,
+        required:false
     },
+    // imageUrl:{
+    //     type:Buffer,
+    //     // required:true,
+    // },
     isbnNumber:{
         type:String,
         required:true,
@@ -28,7 +32,7 @@ const BookListSchema = new Schema({
         type:String,
         required:true
     },
-    genre:{
+    genreId:{
         type: Schema.Types.ObjectId, //mongoose.Schema.Types.ObjectId
         ref: 'Genre'
     }, 

@@ -98,11 +98,11 @@ UserSchema.pre("remove",async function(next){
 UserSchema.statics.findByCredentials = async (email,password)=> {
     const authUser = await User.findOne({ email });
     if (!authUser) {
-        return res.status(401).json({ error: 'unauthorized' });
+        throw new Error('unauthorized')
     }
     const authenticated = comparePassword(password, authUser.password);
     if (!authenticated) {
-        return res.status(401).json({ error: 'unauthorized' });
+        throw new Error('unauthorized')
     }
     return authUser
 }
@@ -122,14 +122,15 @@ UserSchema.methods.generateAuthToken = async function(){
     return jwtToken(payload,"1d")
 }
 
-UserSchema.methods.getPublicProfile = async function(){
+UserSchema.methods.getPublicProfile = function(){
     const user = this;
     const userObject = user.toObject()
     delete userObject.password
+    delete userObject.contactInfo._id
     return userObject;
 }
 
-// UserSchema.methods.toJSON = async function(){
+// UserSchema.methods.toJSON = function(){
 //     const user = this;
 //     const userObject = user.toObject()
 //     delete userObject.password
@@ -142,6 +143,6 @@ UserSchema.virtual("genres",{
     foreignField:"user"
 })
 
-const User = mongoose.model('User', UserSchema)
+const User = model('User', UserSchema)
 
 module.exports = User

@@ -30,7 +30,92 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserResponse"
   ######################################################################################
-  /user/register:
+    post:
+        tags: 
+          - UserController
+        summary: API endpoint to register user
+        description: Register new user
+        operationId: createUser
+        security:
+          - bearerAuth: []
+        requestBody:
+          required: true
+          description: Request payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserRequest"
+        responses:
+          200:
+            description: ok
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserResponse"
+          400:
+            description: Bad request
+          404:
+            description: Not found
+          500:
+            description: Internal server error
+    put:
+      tags: 
+        - UserController
+      summary: API endpoint to update registered user
+      description: Update user
+      operationId: updateUser
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        description: Request payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequest"
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        400:
+          description: Bad request
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+  /user/register/{userId}:
+    get:
+      tags: 
+        - UserController
+      summary: API endpoint to retrieve register user by Id
+      description: Get register users by Id
+      operationId: getRegisterUserById
+      parameters:
+        - name: userId
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: successfully processed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse/items"
+        400:
+          description: Bad request
+        404:
+          description: Not found
+        500:
+          description: Internal server error
   /user/login:
     post:
       tags: 
@@ -60,6 +145,371 @@ paths:
           description: Not found
         500:
           description: Internal server error
+  /genre:
+    post:
+      tags: 
+        - GenreController
+      summary: API endpoint to add new genre
+      description: POST create genre
+      operationId: createGenre
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        description: This is an endpoint to create new genre
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenreRequest"
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    default: 200
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/GenreResponse/properties/data/items"
+        400:
+          description: Bad request
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+  /genre/list:
+    get:
+      tags: 
+        - GenreController
+      summary: API endpoint to retrieve list of genre
+      description: List of genre
+      operationId: getGenres
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: successfully processed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenreResponse"
+  /genre/{genreId}:
+    get:
+      tags: 
+        - GenreController
+      summary: API endpoint to retrieve genre by Id
+      description: Get genre by Id
+      operationId: getGenreById
+      parameters:
+        - name: genreId
+          in: path
+          description: Genre ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    default: 200
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/GenreResponse/properties/data/items"
+        400:
+          description: Bad request
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+    put:
+      tags: 
+        - GenreController
+      summary: API endpoint to update genre
+      description: Update genre
+      parameters:
+        - name: genreId
+          in: path
+          description: Genre ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      operationId: updateGenre
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        description: Request payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenreRequest"
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    default: 200
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/GenreResponse/properties/data/items"
+        400:
+          description: Bad request
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+    delete:
+      tags: 
+        - GenreController
+      summary: API endpoint to delete genre
+      description: Delete genre
+      parameters:
+        - name: genreId
+          in: path
+          description: Genre ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      operationId: deleteGenre
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    default: Genre successfully deleted
+        400:
+          description: Bad request
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+  /book:
+    post:
+      tags: 
+        - BookController
+      summary: API endpoint to add new book
+      description: POST create book
+      operationId: createBook
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        description: This is an endpoint to create new book
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookRequest"
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    default: 200
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/GenreResponse/properties/data/items"
+        400:
+          description: Bad request
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+  /book/list:
+    get:
+      tags: 
+        - BookController
+      summary: API endpoint to retrieve list of book
+      description: List of book
+      operationId: getBook
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: successfully processed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookResponse"
+  /book/{bookId}:
+    get:
+      tags: 
+        - GenreController
+      summary: API endpoint to retrieve genre by Id
+      description: Get genre by Id
+      operationId: getBookById
+      parameters:
+        - name: bookId
+          in: path
+          description: Book ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    default: 200
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/BookResponse/properties/data/items"
+        400:
+          description: Bad request
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+    put:
+      tags: 
+        - BookController
+      summary: API endpoint to update book
+      description: Update book
+      parameters:
+        - name: bookId
+          in: path
+          description: Book ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      operationId: updateBook
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        description: Request payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookRequest"
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    default: 200
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/BookResponse/properties/data/items"
+          400:
+            description: Bad request
+          404:
+            description: Not found
+          500:
+            description: Internal server error
+    delete:
+      tags: 
+        - BookController
+      summary: API endpoint to delete book
+      description: Delete book
+      parameters:
+        - name: bookId
+          in: path
+          description: Book ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      operationId: deleteBook
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    default: Book successfully deleted
+        400:
+          description: Bad request
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+  /book/{bookId}/upload:
+    post:
+      tags: 
+        - BookController
+      summary: API endpoint to upload book image
+      description: Upload book image
+      parameters:
+        - name: bookId
+          in: path
+          description: Book ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      operationId: uploadBookImage
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: # Request parts
+                image:
+                  type: string
+                  format: base64
+            encoding: # The same level as schema
+              image: # Property name (see above)
+                contentType: image/png, image/jpeg
 ##################################################################################################
 components:
   securitySchemes:
@@ -155,11 +605,117 @@ components:
               phoneNumber:
                 type: string
     Genre:
+      type: object
+      required:
+        - name
+        - description
+        - userId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        userId: 
+          type: string
     GenreRequest:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+        description:
+          type: string
     GenreResponse:
+      type: object
+      properties:
+        status:
+          type: number
+          default: 200
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+              name:
+                type: string
+              description:
+                type: string
+              createdAt:
+                type: string
+                format: date
+              updatedAt:
+                type: string
+                format: date
     Book:
+      type: object
+      required:
+        - title
+        - author
+        - isbnNumber
+        - price
+        - language
+        - genreId
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        imageUrl:
+          type: string
+        isbnNumber:
+          type: string
+        price:
+          type: string
+        language:
+          type: string
+        genreId:
+          type: string
     BookRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        isbnNumber:
+          type: string
+        price:
+          type: string
+        language:
+          type: string
+        genreId:
+          type: string
     BookResponse:
+      type: object
+      properties:
+        status:
+          type: number
+          default: 200
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              author:
+                type: string
+              isbnNumber:
+                type: string
+              price:
+                type: string
+              language:
+                type: string
+              genreId:
+                type: string
     LoginRequest:
       type: object
       required:
