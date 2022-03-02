@@ -1,5 +1,5 @@
 const { uploadS3, downloadS3, destroyBucketImage } = require('../middlewares/fileupload.js');
-const  Booklist = require('../models/Booklist.js');
+const  Booklist = require('../models/BookList.js');
 const BookService = require('../services/BookService.js');
 const {formatResponseError} = require('../services/HelperService.js');
 const fs = require("fs")
