@@ -8,10 +8,10 @@ info:
     name: Ibrahim Olayinka
     email: ibrahimolayinkaa@gmail.com
 servers:
+  - url:  https://book-store-apis.herokuapp.com/api/v1
+    description:  Production server
   - url:  http://localhost:12000/api/v1
     description:  Development server
-  - url:  https://bookstores.herokuapp.com/api/v1
-    description:  Production server
 paths:
   /user/register:
     get:
