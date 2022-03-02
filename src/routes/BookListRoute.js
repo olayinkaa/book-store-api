@@ -15,6 +15,4 @@ Router.post('/:bookId/upload',upload.single("image"),BookController.uploadBookIm
     res.status(400).json({error:error.message})
 });
 
-
-
 module.exports = Router;

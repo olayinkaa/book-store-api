@@ -4,7 +4,7 @@ const BookService = require('../services/BookService.js');
 const {formatResponseError} = require('../services/HelperService.js');
 const fs = require("fs")
 const util = require("util")
-var encoder = new util.TextEncoder('utf-8');
+// var encoder = new util.TextEncoder('utf-8');
 const unlinkFile = util.promisify(fs.unlink)
 
 const BookController = {
