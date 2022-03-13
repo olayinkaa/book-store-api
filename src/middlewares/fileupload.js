@@ -77,6 +77,11 @@ const upload = multer({
     fileFilter
 })
 
-exports.upload = upload
-exports.uploadS3 = uploadS3
-exports.downloadS3 = downloadS3
+module.exports = {
+    upload,
+    uploadS3,
+    downloadS3
+}
+// exports.upload = upload
+// exports.uploadS3 = uploadS3
+// exports.downloadS3 = downloadS3

@@ -92,7 +92,6 @@ const userController = {
             let token = await user.generateAuthToken()
             return res.status(200).json({ 
                 success:true,
-                // user:user.getPublicProfile(),
                 user:user.getPublicProfile(),
                 token
             });
