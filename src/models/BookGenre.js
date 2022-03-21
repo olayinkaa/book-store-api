@@ -4,8 +4,8 @@ const {Schema,model} = mongoose;
 const GenreSchema = new Schema({
     name: {
         type:String,
-        required:true,
-        unique:true
+        required:true
+        // unique:false
     },
     description:String,
     userId:{

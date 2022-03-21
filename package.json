@@ -10,11 +10,15 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "author": "ibrahimolayinkaa@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^6.0.0-beta.0",
     "aws-sdk": "^2.1082.0",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.7",
